@@ -503,9 +503,6 @@ footer{
 <div aria-live="polite" aria-atomic="true" class="sr-only" id="live-region"></div>
 
 <!-- ── AUTH GATE ── -->
-<div id="auth-gate" role="dialog" aria-modal="true" aria-labelledby="auth-heading">
-  <div class="auth-card">
-    <div class="auth-logo">PITCH<span>SCOUT</span></div>
     <p class="auth-sub" id="auth-heading">Beta Access — Enter your email to continue</p>
     <label class="auth-label" for="auth-email">Email Address</label>
     <input class="auth-input" type="email" id="auth-email" 
@@ -523,7 +520,7 @@ footer{
 </div>
 
 <!-- ── MAIN APP ── -->
-<div id="app" aria-hidden="true" style="display:none">
+<div id="app">
 
   <!-- NAV -->
   <nav id="main-nav" aria-label="PitchScout navigation">
@@ -1769,20 +1766,8 @@ function startNewAnalysis() {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  // Session check
-  if (checkExistingSession()) {
-    document.getElementById('auth-gate').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('app').removeAttribute('aria-hidden');
-    if (state.isClubUser) document.getElementById('coach-name-wrap').style.display = 'grid';
-    renderRecentReports();
-  }
-
-  // Auth
-  document.getElementById('auth-btn').addEventListener('click', handleAuth);
-  document.getElementById('auth-email').addEventListener('keydown', e => {
-    if (e.key === 'Enter') handleAuth();
-  });
+  // Auth gate removed — app loads directly
+  renderRecentReports();
   // Clear messages and sync dots when user types a new email
   document.getElementById('auth-email').addEventListener('input', () => {
     document.getElementById('auth-err').classList.remove('show');
